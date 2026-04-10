@@ -97,7 +97,17 @@ const dataMap = {
 const form = document.getElementById("style-form");
 const result = document.getElementById("result");
 const copyButton = document.getElementById("copy-result");
+const imageButton = document.getElementById("generate-image");
+const imageResult = document.getElementById("image-result");
 let lastPlanText = "";
+let lastImagePrompt = "";
+
+const dailyColor = {
+  date: "2026-04-10",
+  source: "五行穿衣公开参考",
+  colors: ["红色", "粉色", "橙红", "紫色"],
+  note: "作为民俗/趣味参考使用，不覆盖合身度、场景和肤色逻辑。"
+};
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -117,6 +127,11 @@ form.addEventListener("submit", (event) => {
   const shoeAdvice = buildShoeAdvice(values);
   const ageAdvice = buildAgeAdvice(values);
   const goalAdvice = buildGoalAdvice(goal, values);
+  const dailyColorAdvice = values.useDailyColor
+    ? `今日宜穿色参考：${dailyColor.colors.join("、")}。建议只做 10%-30% 的点缀或上装辅助色，不要强行全身同色。`
+    : "未启用今日宜穿色参考，按肤色、场景和风格优先。";
+
+  lastImagePrompt = buildImagePrompt(values, outfit, palette, dailyColorAdvice);
 
   lastPlanText = [
     `男士穿搭方案：${occasion.title}`,
@@ -126,6 +141,7 @@ form.addEventListener("submit", (event) => {
     `避坑：${bodyType.avoid}`,
     `配色：${palette.join("、")}`,
     `颜色比例：${proportion}`,
+    dailyColorAdvice,
     `鞋履：${shoeAdvice}`,
     `年龄阶段：${ageAdvice}`,
     `预算打法：${budget.advice}`,
@@ -159,8 +175,10 @@ form.addEventListener("submit", (event) => {
       <h3>更衬肤色的颜色</h3>
       <p>${weather}</p>
       <p><strong>颜色比例：</strong>${proportion}</p>
+      <p><strong>今日参考：</strong>${dailyColorAdvice}</p>
       <div class="chips">
         ${palette.map((color) => `<span class="chip">${color}</span>`).join("")}
+        ${values.useDailyColor ? dailyColor.colors.map((color) => `<span class="chip">${color}</span>`).join("") : ""}
       </div>
     </article>
 
@@ -190,16 +208,58 @@ form.addEventListener("submit", (event) => {
       <h3>个性化提醒</h3>
       <p>${goalAdvice}</p>
     </article>
+
+    <article class="result-card">
+      <p class="result-kicker">AI 效果图提示词</p>
+      <h3>可直接用于绘图</h3>
+      <p>${lastImagePrompt}</p>
+    </article>
   `;
 
   copyButton.disabled = false;
+  imageButton.disabled = false;
   copyButton.textContent = "复制方案";
+  imageButton.textContent = "生成 AI 效果图";
+  imageResult.innerHTML = "";
 });
 
 copyButton.addEventListener("click", async () => {
   if (!lastPlanText) return;
   await navigator.clipboard.writeText(lastPlanText);
   copyButton.textContent = "已复制";
+});
+
+imageButton.addEventListener("click", async () => {
+  if (!lastImagePrompt) return;
+
+  imageButton.disabled = true;
+  imageButton.textContent = "生成中...";
+  imageResult.innerHTML = `<p class="image-note">正在生成 AI 效果图。如果这是本地打开的文件，或线上还没配置 OPENAI_API_KEY，会返回提示而不是图片。</p>`;
+
+  try {
+    const response = await fetch("/api/generate-outfit-image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: lastImagePrompt })
+    });
+    const payload = await response.json();
+
+    if (!response.ok) {
+      throw new Error(payload.error || "图片生成失败");
+    }
+
+    imageResult.innerHTML = `<img src="${payload.image}" alt="AI 生成的男士穿搭效果图">`;
+    imageButton.textContent = "重新生成 AI 效果图";
+  } catch (error) {
+    imageResult.innerHTML = `
+      <p class="image-note">
+        暂时无法在线生成图片：${error.message}。你仍可复制上方“AI 效果图提示词”到任意绘图工具使用。
+      </p>
+    `;
+    imageButton.textContent = "生成 AI 效果图";
+  } finally {
+    imageButton.disabled = false;
+  }
 });
 
 function buildOutfit(values) {
@@ -256,6 +316,20 @@ function buildAgeAdvice(values) {
     mature: "少追潮流，多追面料和剪裁，颜色越稳，质感越重要。"
   };
   return advice[values.ageStage];
+}
+
+function buildImagePrompt(values, outfit, palette, dailyColorAdvice) {
+  const occasion = dataMap.occasion[values.occasion].title;
+  const style = dataMap.styleMood[values.styleMood].voice;
+  return [
+    "生成一张真实感男士全身穿搭效果图。",
+    `场景：${occasion}。`,
+    `穿搭单品：${outfit.join("，")}。`,
+    `主色建议：${palette.join("、")}。`,
+    dailyColorAdvice,
+    `风格要求：${style}`,
+    "模特自然站姿，背景简洁，服装细节清晰，避免夸张奢侈品牌 logo，画面比例为竖版全身照。"
+  ].join("");
 }
 
 function buildGoalAdvice(goal, values) {

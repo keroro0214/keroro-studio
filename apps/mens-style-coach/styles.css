@@ -97,6 +97,35 @@ h1 {
   gap: 24px;
 }
 
+.today-color {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.today-color p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.check-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+
 .panel {
   border-radius: 30px;
   padding: 24px;
@@ -232,8 +261,29 @@ button:hover {
   color: #f1b38d;
 }
 
+.image-result {
+  margin-top: 18px;
+}
+
+.image-result img {
+  width: min(100%, 520px);
+  display: block;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.image-note {
+  padding: 16px;
+  border-radius: 20px;
+  background: rgba(188, 91, 54, 0.1);
+  color: var(--accent-deep);
+  line-height: 1.7;
+}
+
 @media (max-width: 960px) {
   .hero,
+  .today-color,
   .workspace,
   .result-grid {
     grid-template-columns: 1fr;

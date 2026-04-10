@@ -35,6 +35,20 @@
       </div>
     </section>
 
+    <section class="today-color panel">
+      <div>
+        <p class="result-kicker">今日宜穿色参考</p>
+        <h2>2026-04-10：红色、粉色、橙红、紫色</h2>
+        <p>
+          这是根据公开“五行穿衣”内容整理的民俗参考，不是硬性规则。你可以选择是否把它合并进穿搭建议。
+        </p>
+      </div>
+      <label class="check-row">
+        <input type="checkbox" name="useDailyColor" form="style-form" checked>
+        <span>参考今日宜穿色</span>
+      </label>
+    </section>
+
     <section class="workspace">
       <form id="style-form" class="panel form-panel">
         <div class="panel-head">
@@ -144,6 +158,7 @@
           <h2>推荐结果</h2>
           <p>不是“理论上好看”，而是你今天就能照着穿。</p>
           <button id="copy-result" class="ghost-button" type="button" disabled>复制方案</button>
+          <button id="generate-image" class="ghost-button" type="button" disabled>生成 AI 效果图</button>
         </div>
 
         <div id="result" class="result-grid">
@@ -153,6 +168,7 @@
             <p>填写左侧内容后，这里会生成完整穿搭建议。</p>
           </article>
         </div>
+        <div id="image-result" class="image-result" aria-live="polite"></div>
       </section>
     </section>
   </main>

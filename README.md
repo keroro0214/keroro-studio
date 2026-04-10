@@ -6,6 +6,18 @@
 
 - `apps/mens-style-coach`: 男士穿搭教练
 
+## AI 图片生成
+
+`apps/mens-style-coach` 已经包含 AI 效果图按钮。线上生成图片需要在 Cloudflare Pages 里配置环境变量：
+
+- `OPENAI_API_KEY`
+
+后端函数在：
+
+- `functions/api/generate-outfit-image.js`
+
+本地直接双击 HTML 时不会调用这个后端函数；部署到 Cloudflare Pages 后才可用。
+
 ## 本地打开
 
 直接双击根目录的 `index.html`，或打开某个应用：
