@@ -1,24 +1,21 @@
-# 男士穿搭教练
+# Keroro Studio
 
-一个可本地打开、也可直接部署到公网的静态网页应用，用来根据场景、体型、肤色、预算和风格偏好生成男士穿搭建议。
+一个可部署到公网的多应用静态站点。根目录是工作室首页，各个小程序放在 `apps/` 下面。
+
+## 应用
+
+- `apps/mens-style-coach`: 男士穿搭教练
 
 ## 本地打开
 
-直接双击 `index.html`，或在浏览器里打开：
+直接双击根目录的 `index.html`，或打开某个应用：
 
-- `C:\Users\PC\mens-style-coach\index.html`
-
-## 目前功能
-
-- 根据场景生成穿搭公式
-- 根据体型给出版型建议
-- 根据肤色给出配色建议
-- 根据预算给出采购优先级
-- 根据自由输入目标生成针对性提醒
+- 工作室首页：`C:\Users\PC\mens-style-coach\index.html`
+- 男士穿搭教练：`C:\Users\PC\mens-style-coach\apps\mens-style-coach\index.html`
 
 ## Cloudflare Pages 部署
 
-1. 把整个 `mens-style-coach` 文件夹上传到一个 GitHub 仓库。
+1. 把整个仓库推送到 GitHub。
 2. 登录 Cloudflare。
 3. 打开 `Workers & Pages`。
 4. 选择 `Create application`。
@@ -32,8 +29,7 @@
 
 部署后你会得到一个公网网址，可以直接发给别人用。
 
-## 文件
+## 目录结构
 
-- `index.html`
-- `styles.css`
-- `app.js`
+- `index.html`: 工作室首页
+- `apps/mens-style-coach/`: 男士穿搭教练

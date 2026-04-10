@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>男士穿搭教练</title>
+  <meta name="description" content="输入体型、肤色、预算和场景，快速获得靠谱的男士穿搭建议、配色方案和避坑提醒。">
+  <meta name="theme-color" content="#bc5b36">
+  <meta property="og:title" content="男士穿搭教练">
+  <meta property="og:description" content="给男人看的实用穿搭建议，不讲空话，直接告诉你今天该怎么穿。">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Menswear Coach</p>
+        <h1>别再靠感觉穿衣了。</h1>
+        <p class="lead">
+          输入你的体型、肤色、预算和场景，这个小程序会给出一套能落地的男士穿搭方案，
+          包括配色、单品选择、避坑建议和采购优先级。
+        </p>
+      </div>
+      <div class="hero-card">
+        <p class="card-label">今日原则</p>
+        <ul>
+          <li>先看合身，再谈风格。</li>
+          <li>颜色不要超过 3 个主色。</li>
+          <li>鞋和裤子的关系，决定整体完成度。</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <form id="style-form" class="panel form-panel">
+        <div class="panel-head">
+          <h2>个人信息</h2>
+          <p>选择越接近现实，建议越靠谱。</p>
+        </div>
+
+        <label>
+          <span>目标场景</span>
+          <select name="occasion">
+            <option value="office">上班通勤</option>
+            <option value="date">约会</option>
+            <option value="casual">日常休闲</option>
+            <option value="wedding">正式场合</option>
+            <option value="travel">旅行出行</option>
+            <option value="night">晚上聚会</option>
+          </select>
+        </label>
+
+        <label>
+          <span>体型</span>
+          <select name="bodyType">
+            <option value="slim">偏瘦</option>
+            <option value="average">标准</option>
+            <option value="broad">肩宽壮实</option>
+            <option value="stocky">微胖厚实</option>
+          </select>
+        </label>
+
+        <label>
+          <span>肤色</span>
+          <select name="skinTone">
+            <option value="fair">偏白</option>
+            <option value="warm">暖黄</option>
+            <option value="deep">偏深</option>
+          </select>
+        </label>
+
+        <label>
+          <span>风格偏好</span>
+          <select name="styleMood">
+            <option value="minimal">极简利落</option>
+            <option value="smart">成熟绅雅</option>
+            <option value="street">都市街头</option>
+            <option value="classic">经典耐看</option>
+          </select>
+        </label>
+
+        <label>
+          <span>天气</span>
+          <select name="weather">
+            <option value="hot">炎热</option>
+            <option value="mild">温和</option>
+            <option value="cool">偏凉</option>
+            <option value="cold">寒冷</option>
+          </select>
+        </label>
+
+        <label>
+          <span>预算</span>
+          <select name="budget">
+            <option value="low">低预算</option>
+            <option value="mid">中预算</option>
+            <option value="high">高预算</option>
+          </select>
+        </label>
+
+        <label>
+          <span>你最想改善的点</span>
+          <textarea name="goal" rows="4" placeholder="例如：想显高一点；不会搭鞋；衣柜太乱；想从土味 T 恤换成成熟一点的风格。"></textarea>
+        </label>
+
+        <button type="submit">生成穿搭方案</button>
+      </form>
+
+      <section class="panel result-panel">
+        <div class="panel-head">
+          <h2>推荐结果</h2>
+          <p>不是“理论上好看”，而是你今天就能照着穿。</p>
+        </div>
+
+        <div id="result" class="result-grid">
+          <article class="result-card">
+            <p class="result-kicker">基础原则</p>
+            <h3>先提交信息</h3>
+            <p>填写左侧内容后，这里会生成完整穿搭建议。</p>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
