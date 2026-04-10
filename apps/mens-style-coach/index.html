@@ -84,6 +84,25 @@
         </label>
 
         <label>
+          <span>年龄阶段</span>
+          <select name="ageStage">
+            <option value="student">学生/刚入职</option>
+            <option value="young">25-35 岁</option>
+            <option value="mature">35 岁以上</option>
+          </select>
+        </label>
+
+        <label>
+          <span>身高目标</span>
+          <select name="heightGoal">
+            <option value="balanced">自然协调</option>
+            <option value="taller">想显高</option>
+            <option value="stronger">想显壮</option>
+            <option value="leaner">想显瘦</option>
+          </select>
+        </label>
+
+        <label>
           <span>天气</span>
           <select name="weather">
             <option value="hot">炎热</option>
@@ -103,6 +122,16 @@
         </label>
 
         <label>
+          <span>鞋履偏好</span>
+          <select name="shoeMood">
+            <option value="sneaker">运动鞋/板鞋</option>
+            <option value="loafer">乐福鞋</option>
+            <option value="derby">德比鞋/皮鞋</option>
+            <option value="boots">靴子</option>
+          </select>
+        </label>
+
+        <label>
           <span>你最想改善的点</span>
           <textarea name="goal" rows="4" placeholder="例如：想显高一点；不会搭鞋；衣柜太乱；想从土味 T 恤换成成熟一点的风格。"></textarea>
         </label>
@@ -114,6 +143,7 @@
         <div class="panel-head">
           <h2>推荐结果</h2>
           <p>不是“理论上好看”，而是你今天就能照着穿。</p>
+          <button id="copy-result" class="ghost-button" type="button" disabled>复制方案</button>
         </div>
 
         <div id="result" class="result-grid">

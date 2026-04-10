@@ -155,6 +155,21 @@ button {
   box-shadow: 0 16px 30px rgba(188, 91, 54, 0.25);
 }
 
+.ghost-button {
+  width: auto;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: transparent;
+  color: var(--accent-deep);
+  border: 1px solid rgba(127, 49, 24, 0.24);
+  box-shadow: none;
+}
+
+.ghost-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
 button:hover {
   transform: translateY(-2px);
 }
@@ -197,6 +212,24 @@ button:hover {
   background: rgba(188, 91, 54, 0.1);
   color: var(--accent-deep);
   font-size: 13px;
+}
+
+.result-card.featured {
+  grid-column: 1 / -1;
+  background:
+    linear-gradient(135deg, rgba(27, 27, 27, 0.92), rgba(70, 48, 34, 0.92)),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(244, 238, 230, 0.95));
+}
+
+.result-card.featured h3,
+.result-card.featured p,
+.result-card.featured li,
+.result-card.featured .result-kicker {
+  color: #fff7ec;
+}
+
+.result-card.featured .result-kicker {
+  color: #f1b38d;
 }
 
 @media (max-width: 960px) {
